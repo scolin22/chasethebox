@@ -125,21 +125,25 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
         switch (e.getKeyCode()) {
         case KeyEvent.VK_UP:
             System.out.println("- UP");
+            box.setMovingUp(false);
             box.stop();
             break;
 
         case KeyEvent.VK_DOWN:
             System.out.println("- DOWN");
+            box.setMovingDown(false);
             box.stop();
             break;
 
         case KeyEvent.VK_LEFT:
             System.out.println("- LEFT");
+            box.setMovingLeft(false);
             box.stop();
             break;
 
         case KeyEvent.VK_RIGHT:
             System.out.println("- RIGHT");
+            box.setMovingRight(false);
             box.stop();
             break;
 
