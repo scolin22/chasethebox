@@ -8,18 +8,27 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.net.URL;
+import java.util.Random;
 
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
-    private Box box;
-    private Image image, character;
+    final private int WIDTH = 800;
+    final private int HEIGHT = 480;
+
+    private static Box box;
+    private static Collectible clbl1;
+    private static int score = 0;
+
+    private Image image, character, collectible;
     private Graphics second;
     private URL base;
+
+    private Random rand = new Random();
 
     @Override
     public void init() {
 
-        setSize(800, 480);
+        setSize(WIDTH, HEIGHT);
         setBackground(Color.BLACK);
         setFocusable(true);
         addKeyListener(this);
@@ -33,12 +42,14 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
         // Image Setups
         character = getImage(base, "data/box.png");
+        collectible = getImage(base, "data/collectible.png");
 
     }
 
     @Override
     public void start() {
         box = new Box();
+        clbl1 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
 
         Thread thread = new Thread(this);
         thread.start();
@@ -58,6 +69,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     public void run() {
         while (true) {
             box.update();
+            clbl1.update();
+
             repaint();
             try {
                 Thread.sleep(17);
@@ -85,7 +98,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
     @Override
     public void paint(Graphics g) {
+        // For collectibles in list, draw collectibles
         g.drawImage(character, box.getCenterX() - 5, box.getCenterY() - 5, this);
+        g.drawImage(collectible, clbl1.getCenterX() - 5,
+                clbl1.getCenterY() - 5, this);
     }
 
     @Override
@@ -159,6 +175,18 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     public void keyTyped(KeyEvent e) {
         // TODO Auto-generated method stub
 
+    }
+
+    public static Box getBox() {
+        return box;
+    }
+
+    public static int getScore() {
+        return score;
+    }
+
+    public static void setScore(int score) {
+        StartingClass.score = score;
     }
 
 }

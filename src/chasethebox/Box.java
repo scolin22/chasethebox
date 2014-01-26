@@ -1,28 +1,31 @@
 package chasethebox;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Box {
 
     private int centerY = 240;
     private int centerX = 400;
-
     private int speedY = 0;
     private int speedX = 0;
-
     private int box_height = 10;
     private int box_width = 10;
-
-    final private int WIDTH = 800;
-    final private int HEIGHT = 480;
-
-    final private int MOVESPEED = 6;
 
     private boolean movingUp = false;
     private boolean movingDown = false;
     private boolean movingLeft = false;
     private boolean movingRight = false;
+
+    final private int WIDTH = 800;
+    final private int HEIGHT = 480;
+    final private int MOVESPEED = 6;
+
+    public Box() {
+
+    }
+
+    private Rectangle r = new Rectangle(centerX - box_width / 2, centerY
+            - box_height / 2, box_width, box_height);
 
     public void update() {
         if (centerY + speedY + box_height / 2 >= HEIGHT) {
@@ -40,6 +43,8 @@ public class Box {
         } else {
             centerX += speedX;
         }
+
+        r.setLocation(centerX - box_width / 2, centerY - box_height / 2);
     }
 
     public void moveUp() {
@@ -87,11 +92,6 @@ public class Box {
             moveRight();
         }
 
-    }
-
-    public void drawBox(Graphics g, Color c) {
-        g.setColor(Color.CYAN);
-        g.drawRect(centerX, centerY, box_width, box_height);
     }
 
     public int getCenterY() {
@@ -172,5 +172,9 @@ public class Box {
 
     public void setMovingRight(boolean movingRight) {
         this.movingRight = movingRight;
+    }
+
+    public Rectangle getR() {
+        return r;
     }
 }
