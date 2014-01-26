@@ -60,7 +60,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     public void start() {
         box = new Box();
         bad1 = new Enemy(10, 10);
-        bad2 = new Enemy(469, 789);
+        bad2 = new Enemy(789, 469);
         clbl1 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
         clbl2 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
         clbl3 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
@@ -147,14 +147,14 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
             g.fillRect(0, 0, 800, 480);
             g.setColor(Color.WHITE);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 16));
-            g.drawString("YOU'RE DEAD", 355, 240);
+            g.drawString("LOSER", 350, 240);
             g.drawString("YOUR SCORE: " + getScore(), 350, 260);
-        } else if (state == GameState.LOSE) {
+        } else if (state == GameState.WIN) {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, 800, 480);
             g.setColor(Color.WHITE);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 16));
-            g.drawString("YOU'RE A WINNER", 355, 240);
+            g.drawString("WINNER", 350, 240);
             g.drawString("YOUR SCORE: " + getScore(), 350, 260);
         }
     }
