@@ -15,7 +15,7 @@ public class Collectible {
 
     private Rectangle r;
 
-    private ArrayList<Collectible> collectibles = new ArrayList<Collectible>();
+    public static ArrayList<Collectible> collectibles = new ArrayList<Collectible>();
 
     public Collectible(int centerX, int centerY) {
         this.centerY = centerY;
@@ -37,14 +37,8 @@ public class Collectible {
         if (r.intersects(StartingClass.getBox().getR())) {
             StartingClass.setScore(StartingClass.getScore() + value);
             // Remove collectible
-            while (true) {
-                System.out.println("You win. Score " + value);
-            }
+            visible = false;
         }
-    }
-
-    public void remove() {
-        // TODO Remove the collectible from list
     }
 
     public int getCenterY() {
