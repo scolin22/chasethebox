@@ -34,7 +34,7 @@ public class Collectible {
         }
 
         if (visibleCount <= 0) {
-            StartingClass.setWin(true);
+            // StartingClass.setWin(true);
         }
     }
 
@@ -44,6 +44,9 @@ public class Collectible {
             // Remove collectible
             visible = false;
             visibleCount--;
+
+            // Tell main loop to create the new collectible and enemy object
+            StartingClass.setMore(true);
         }
     }
 

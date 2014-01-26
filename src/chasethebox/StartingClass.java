@@ -23,11 +23,12 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     final private int HEIGHT = 480;
 
     private static Box box;
-    private static Enemy bad1, bad2;
-    private static Collectible clbl1, clbl2, clbl3, clbl4, clbl5;
+    private static Enemy bad1;
+    private static Collectible clbl1;
     private static int score = 0;
     private static boolean living = true;
     private static boolean win = false;
+    private static boolean more = false;
 
     private Image image, character, collectible, enemy;
     private Graphics second;
@@ -60,12 +61,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     public void start() {
         box = new Box();
         bad1 = new Enemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
-        bad2 = new Enemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
         clbl1 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
-        clbl2 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
-        clbl3 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
-        clbl4 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
-        clbl5 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
 
         Thread thread = new Thread(this);
         thread.start();
@@ -84,6 +80,14 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     @Override
     public void run() {
         while (state == GameState.RUNNING) {
+            if (isMore()) {
+                Enemy.enemies.add(new Enemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT)));
+                Collectible.collectibles.add(new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT)));
+                Collectible.collectibles.add(new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT)));
+
+                setMore(false);
+            }
+
             box.update();
             for (Enemy enmy : Enemy.enemies) {
                 enmy.update();
@@ -258,6 +262,14 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
     public static void setWin(boolean win) {
         StartingClass.win = win;
+    }
+
+    public static boolean isMore() {
+        return more;
+    }
+
+    public static void setMore(boolean more) {
+        StartingClass.more = more;
     }
 
 }
