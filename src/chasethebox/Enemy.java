@@ -1,9 +1,12 @@
 package chasethebox;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public class Enemy extends Box {
     private boolean chasing = true;
+
+    public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
     public Enemy(int x, int y) {
         setCenterX(x);
@@ -14,6 +17,8 @@ public class Enemy extends Box {
                 getBox_height());
 
         setR(rect);
+
+        enemies.add(this);
     }
 
     public void update() {
