@@ -177,4 +177,20 @@ public class Box {
     public Rectangle getR() {
         return r;
     }
+
+    public void setR(Rectangle r) {
+        this.r = r;
+    }
+
+    public int getWIDTH() {
+        return WIDTH;
+    }
+
+    public int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public int getMOVESPEED() {
+        return MOVESPEED;
+    }
 }

@@ -29,12 +29,12 @@ public class Collectible {
 
     public void update() {
         if (visible) {
-            checkCollision();
+            checkCollision(StartingClass.getBox().getR());
         }
     }
 
-    private void checkCollision() {
-        if (r.intersects(StartingClass.getBox().getR())) {
+    private void checkCollision(Rectangle victim) {
+        if (r.intersects(victim)) {
             StartingClass.setScore(StartingClass.getScore() + value);
             // Remove collectible
             visible = false;

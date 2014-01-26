@@ -16,10 +16,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     final private int HEIGHT = 480;
 
     private static Box box;
+    private static Enemy bad;
     private static Collectible clbl1, clbl2, clbl3, clbl4, clbl5;
     private static int score = 0;
 
-    private Image image, character, collectible;
+    private Image image, character, collectible, enemy;
     private Graphics second;
     private URL base;
 
@@ -41,6 +42,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
         }
 
         // Image Setups
+        enemy = getImage(base, "data/enemy.png");
         character = getImage(base, "data/box.png");
         collectible = getImage(base, "data/collectible.png");
 
@@ -49,6 +51,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     @Override
     public void start() {
         box = new Box();
+        bad = new Enemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
         clbl1 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
         clbl2 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
         clbl3 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
@@ -73,6 +76,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     public void run() {
         while (true) {
             box.update();
+            bad.update();
             for (Collectible clbl : Collectible.collectibles) {
                 clbl.update();
             }
@@ -111,6 +115,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
                         clbl.getCenterY() - 5, this);
             }
         }
+        g.drawImage(enemy, bad.getCenterX() - 5, bad.getCenterY() - 5, this);
         g.drawImage(character, box.getCenterX() - 5, box.getCenterY() - 5, this);
 
     }
