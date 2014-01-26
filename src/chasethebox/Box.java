@@ -19,13 +19,19 @@ public class Box {
     final private int WIDTH = 800;
     final private int HEIGHT = 480;
     final private int MOVESPEED = 6;
+    final private int CHASE_SCALE = 15;
+
+    private Rectangle r = new Rectangle(getCenterX() - getBox_width() / 2,
+            getCenterY() - getBox_height() / 2, getBox_width(), getBox_height());
+
+    private Rectangle chase_r = new Rectangle(getCenterX() - CHASE_SCALE
+            * (getBox_width() / 2), getCenterY() - CHASE_SCALE
+            * (getBox_height() / 2), CHASE_SCALE * getBox_width(), CHASE_SCALE
+            * getBox_height());
 
     public Box() {
 
     }
-
-    private Rectangle r = new Rectangle(centerX - box_width / 2, centerY
-            - box_height / 2, box_width, box_height);
 
     public void update() {
         if (centerY + speedY + box_height / 2 >= HEIGHT) {
@@ -44,7 +50,10 @@ public class Box {
             centerX += speedX;
         }
 
-        r.setLocation(centerX - box_width / 2, centerY - box_height / 2);
+        r.setLocation(getCenterX() - getBox_width() / 2, getCenterY()
+                - getBox_height() / 2);
+        chase_r.setLocation(getCenterX() - CHASE_SCALE * (getBox_width() / 2),
+                getCenterY() - CHASE_SCALE * (getBox_height() / 2));
     }
 
     public void moveUp() {
@@ -192,5 +201,17 @@ public class Box {
 
     public int getMOVESPEED() {
         return MOVESPEED;
+    }
+
+    public int getCHASE_SCALE() {
+        return CHASE_SCALE;
+    }
+
+    public Rectangle getChase_r() {
+        return chase_r;
+    }
+
+    public void setChase_r(Rectangle chase_r) {
+        this.chase_r = chase_r;
     }
 }

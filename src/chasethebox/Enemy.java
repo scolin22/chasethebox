@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class Enemy extends Box {
-    private boolean chasing = true;
+    private boolean chasing = false;
 
     public static ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
@@ -16,7 +16,13 @@ public class Enemy extends Box {
                 getCenterY() - getBox_height() / 2, getBox_width(),
                 getBox_height());
 
+        Rectangle chase_rect = new Rectangle(getCenterX() - getCHASE_SCALE()
+                * (getBox_width() / 2), getCenterY() - getCHASE_SCALE()
+                * (getBox_height() / 2), getCHASE_SCALE() * getBox_width(),
+                getCHASE_SCALE() * getBox_height());
+
         setR(rect);
+        setChase_r(chase_rect);
 
         enemies.add(this);
     }
@@ -24,12 +30,19 @@ public class Enemy extends Box {
     public void update() {
         if (isChasing()) {
             chase();
+        } else {
+            if (checkCollision(getChase_r(), StartingClass.getBox()
+                    .getChase_r())) {
+                setChasing(true);
+            }
         }
         super.update();
     }
 
     private void chase() {
-        checkCollision(StartingClass.getBox().getR());
+        while (checkCollision(getR(), StartingClass.getBox().getR())) {
+            System.out.println("You lose");
+        }
 
         int x = StartingClass.getBox().getCenterX();
         int y = StartingClass.getBox().getCenterY();
@@ -47,13 +60,8 @@ public class Enemy extends Box {
         setSpeedY(speedY);
     }
 
-    private void checkCollision(Rectangle victim) {
-        if (getR().intersects(victim)) {
-            // end game
-            while (true) {
-                System.out.println("You lose");
-            }
-        }
+    private boolean checkCollision(Rectangle antag, Rectangle victim) {
+        return antag.intersects(victim);
     }
 
     public boolean isChasing() {

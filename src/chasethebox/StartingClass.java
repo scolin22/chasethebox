@@ -51,8 +51,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     @Override
     public void start() {
         box = new Box();
-        bad1 = new Enemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
-        bad2 = new Enemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
+        bad1 = new Enemy(10, 10);
+        bad2 = new Enemy(469, 789);
         clbl1 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
         clbl2 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
         clbl3 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
@@ -119,8 +119,13 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
             }
         }
         for (Enemy enmy : Enemy.enemies) {
-            g.drawImage(enemy, enmy.getCenterX() - 5, enmy.getCenterY() - 5,
-                    this);
+            if (enmy.isChasing()) {
+                g.drawImage(enemy, enmy.getCenterX() - 5,
+                        enmy.getCenterY() - 5, this);
+            } else {
+                g.drawImage(collectible, enmy.getCenterX() - 5,
+                        enmy.getCenterY() - 5, this);
+            }
         }
         g.drawImage(character, box.getCenterX() - 5, box.getCenterY() - 5, this);
 

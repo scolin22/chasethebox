@@ -1,5 +1,7 @@
 /bin
 
+*.zip
+
 # OSX .gitignore
 .DS_STORE
 ._*
