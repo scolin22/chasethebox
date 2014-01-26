@@ -44,7 +44,7 @@ public class Enemy extends Box {
         int x_diff = x - getCenterX();
         int y_diff = y - getCenterY();
 
-        double alpha = Math.sqrt((Math.pow(x_diff, 2) + Math.pow(y_diff, 2)) / Math.pow(getMOVESPEED() / 2, 2));
+        double alpha = Math.sqrt((Math.pow(x_diff, 2) + Math.pow(y_diff, 2)) / Math.pow(getMOVESPEED(), 2));
 
         int speedX = (int) (x_diff / alpha);
         int speedY = (int) (y_diff / alpha);

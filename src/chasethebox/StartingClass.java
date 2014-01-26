@@ -2,6 +2,7 @@ package chasethebox;
 
 import java.applet.Applet;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -82,28 +83,27 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
     @Override
     public void run() {
-        if (state == GameState.Running) {
-            while (true) {
-                box.update();
-                for (Enemy enmy : Enemy.enemies) {
-                    enmy.update();
-                }
-                for (Collectible clbl : Collectible.collectibles) {
-                    clbl.update();
-                }
+        while (state == GameState.Running) {
+            box.update();
+            for (Enemy enmy : Enemy.enemies) {
+                enmy.update();
+            }
+            for (Collectible clbl : Collectible.collectibles) {
+                clbl.update();
+            }
 
-                repaint();
-                try {
-                    Thread.sleep(17);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            if (!isLiving()) {
+                state = GameState.Dead;
+            }
 
-                if (!isLiving()) {
-                    state = GameState.Dead;
-                }
+            repaint();
+            try {
+                Thread.sleep(17);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
+
     }
 
     @Override
@@ -124,21 +124,28 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
     @Override
     public void paint(Graphics g) {
-        // For collectibles in list, draw collectibles
-        for (Collectible clbl : Collectible.collectibles) {
-            if (clbl.isVisible()) {
-                g.drawImage(collectible, clbl.getCenterX() - 5, clbl.getCenterY() - 5, this);
+        if (state == GameState.Running) {
+            for (Collectible clbl : Collectible.collectibles) {
+                if (clbl.isVisible()) {
+                    g.drawImage(collectible, clbl.getCenterX() - 5, clbl.getCenterY() - 5, this);
+                }
             }
-        }
-        for (Enemy enmy : Enemy.enemies) {
-            if (enmy.isChasing()) {
-                g.drawImage(enemy, enmy.getCenterX() - 5, enmy.getCenterY() - 5, this);
-            } else {
-                g.drawImage(collectible, enmy.getCenterX() - 5, enmy.getCenterY() - 5, this);
+            for (Enemy enmy : Enemy.enemies) {
+                if (enmy.isChasing()) {
+                    g.drawImage(enemy, enmy.getCenterX() - 5, enmy.getCenterY() - 5, this);
+                } else {
+                    g.drawImage(collectible, enmy.getCenterX() - 5, enmy.getCenterY() - 5, this);
+                }
             }
+            g.drawImage(character, box.getCenterX() - 5, box.getCenterY() - 5, this);
+        } else if (state == GameState.Dead) {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, 800, 480);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 16));
+            g.drawString("YOU'RE DEAD :(", 355, 240);
+            g.drawString("YOUR SCORE: " + getScore(), 350, 260);
         }
-        g.drawImage(character, box.getCenterX() - 5, box.getCenterY() - 5, this);
-
     }
 
     @Override
