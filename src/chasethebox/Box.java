@@ -19,7 +19,7 @@ public class Box {
     final private int WIDTH = 800;
     final private int HEIGHT = 480;
     final private int MOVESPEED = 4;
-    final private int CHASE_SCALE = 10;
+    final private int CHASE_SCALE = 15;
 
     private Rectangle r = new Rectangle(getCenterX() - getBox_width() / 2, getCenterY() - getBox_height() / 2, getBox_width(), getBox_height());
 

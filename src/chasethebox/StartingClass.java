@@ -59,8 +59,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     @Override
     public void start() {
         box = new Box();
-        bad1 = new Enemy(10, 10);
-        bad2 = new Enemy(789, 469);
+        bad1 = new Enemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
+        bad2 = new Enemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
         clbl1 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
         clbl2 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
         clbl3 = new Collectible(rand.nextInt(WIDTH), rand.nextInt(HEIGHT));
