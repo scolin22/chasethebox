@@ -16,6 +16,7 @@ public class Collectible {
     private Rectangle r;
 
     public static ArrayList<Collectible> collectibles = new ArrayList<Collectible>();
+    private static int visibleCount = 0;
 
     public Collectible(int centerX, int centerY) {
         this.centerY = centerY;
@@ -24,11 +25,16 @@ public class Collectible {
         r = new Rectangle(centerX - box_width / 2, centerY - box_height / 2, box_width, box_height);
 
         collectibles.add(this);
+        visibleCount++;
     }
 
     public void update() {
         if (visible) {
             checkCollision(StartingClass.getBox().getR());
+        }
+
+        if (visibleCount <= 0) {
+            StartingClass.setWin(true);
         }
     }
 
@@ -37,6 +43,7 @@ public class Collectible {
             StartingClass.setScore(StartingClass.getScore() + value);
             // Remove collectible
             visible = false;
+            visibleCount--;
         }
     }
 

@@ -14,10 +14,10 @@ import java.util.Random;
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
     enum GameState {
-        Running, Dead
+        RUNNING, LOSE, WIN
     }
 
-    GameState state = GameState.Running;
+    private static GameState state = GameState.RUNNING;
 
     final private int WIDTH = 800;
     final private int HEIGHT = 480;
@@ -27,6 +27,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     private static Collectible clbl1, clbl2, clbl3, clbl4, clbl5;
     private static int score = 0;
     private static boolean living = true;
+    private static boolean win = false;
 
     private Image image, character, collectible, enemy;
     private Graphics second;
@@ -36,7 +37,6 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
     @Override
     public void init() {
-
         setSize(WIDTH, HEIGHT);
         setBackground(Color.BLACK);
         setFocusable(true);
@@ -83,7 +83,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
     @Override
     public void run() {
-        while (state == GameState.Running) {
+        while (state == GameState.RUNNING) {
             box.update();
             for (Enemy enmy : Enemy.enemies) {
                 enmy.update();
@@ -93,7 +93,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
             }
 
             if (!isLiving()) {
-                state = GameState.Dead;
+                state = GameState.LOSE;
+            }
+
+            if (isWin()) {
+                state = GameState.WIN;
             }
 
             repaint();
@@ -124,7 +128,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
     @Override
     public void paint(Graphics g) {
-        if (state == GameState.Running) {
+        if (state == GameState.RUNNING) {
             for (Collectible clbl : Collectible.collectibles) {
                 if (clbl.isVisible()) {
                     g.drawImage(collectible, clbl.getCenterX() - 5, clbl.getCenterY() - 5, this);
@@ -138,12 +142,19 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
                 }
             }
             g.drawImage(character, box.getCenterX() - 5, box.getCenterY() - 5, this);
-        } else if (state == GameState.Dead) {
+        } else if (state == GameState.LOSE) {
             g.setColor(Color.BLACK);
             g.fillRect(0, 0, 800, 480);
             g.setColor(Color.WHITE);
             g.setFont(new Font("TimesRoman", Font.PLAIN, 16));
-            g.drawString("YOU'RE DEAD :(", 355, 240);
+            g.drawString("YOU'RE DEAD", 355, 240);
+            g.drawString("YOUR SCORE: " + getScore(), 350, 260);
+        } else if (state == GameState.LOSE) {
+            g.setColor(Color.BLACK);
+            g.fillRect(0, 0, 800, 480);
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 16));
+            g.drawString("YOU'RE A WINNER", 355, 240);
             g.drawString("YOUR SCORE: " + getScore(), 350, 260);
         }
     }
@@ -239,6 +250,14 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
     public static void setLiving(boolean living) {
         StartingClass.living = living;
+    }
+
+    public static boolean isWin() {
+        return win;
+    }
+
+    public static void setWin(boolean win) {
+        StartingClass.win = win;
     }
 
 }
