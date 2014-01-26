@@ -12,6 +12,12 @@ import java.util.Random;
 
 public class StartingClass extends Applet implements Runnable, KeyListener {
 
+    enum GameState {
+        Running, Dead
+    }
+
+    GameState state = GameState.Running;
+
     final private int WIDTH = 800;
     final private int HEIGHT = 480;
 
@@ -19,6 +25,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
     private static Enemy bad1, bad2;
     private static Collectible clbl1, clbl2, clbl3, clbl4, clbl5;
     private static int score = 0;
+    private static boolean living = true;
 
     private Image image, character, collectible, enemy;
     private Graphics second;
@@ -75,20 +82,26 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
     @Override
     public void run() {
-        while (true) {
-            box.update();
-            for (Enemy enmy : Enemy.enemies) {
-                enmy.update();
-            }
-            for (Collectible clbl : Collectible.collectibles) {
-                clbl.update();
-            }
+        if (state == GameState.Running) {
+            while (true) {
+                box.update();
+                for (Enemy enmy : Enemy.enemies) {
+                    enmy.update();
+                }
+                for (Collectible clbl : Collectible.collectibles) {
+                    clbl.update();
+                }
 
-            repaint();
-            try {
-                Thread.sleep(17);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                repaint();
+                try {
+                    Thread.sleep(17);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                if (!isLiving()) {
+                    state = GameState.Dead;
+                }
             }
         }
     }
@@ -196,6 +209,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
         }
 
+        
     }
 
     @Override
@@ -214,6 +228,14 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
     public static void setScore(int score) {
         StartingClass.score = score;
+    }
+
+    public static boolean isLiving() {
+        return living;
+    }
+
+    public static void setLiving(boolean living) {
+        StartingClass.living = living;
     }
 
 }

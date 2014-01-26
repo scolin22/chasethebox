@@ -16,6 +16,7 @@ public class Collectible {
     private Rectangle r;
 
     public static ArrayList<Collectible> collectibles = new ArrayList<Collectible>();
+    
 
     public Collectible(int centerX, int centerY) {
         this.centerY = centerY;

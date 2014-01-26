@@ -20,6 +20,7 @@ public class Enemy extends Box {
                 * (getBox_width() / 2), getCenterY() - getCHASE_SCALE()
                 * (getBox_height() / 2), getCHASE_SCALE() * getBox_width(),
                 getCHASE_SCALE() * getBox_height());
+        
 
         setR(rect);
         setChase_r(chase_rect);
@@ -37,13 +38,13 @@ public class Enemy extends Box {
             }
         }
         super.update();
+
+        if (checkCollision(getR(), StartingClass.getBox().getR())) {
+            StartingClass.setLiving(false);
+        }
     }
 
     private void chase() {
-        while (checkCollision(getR(), StartingClass.getBox().getR())) {
-            System.out.println("You lose");
-        }
-
         int x = StartingClass.getBox().getCenterX();
         int y = StartingClass.getBox().getCenterY();
 
@@ -58,6 +59,7 @@ public class Enemy extends Box {
 
         setSpeedX(speedX);
         setSpeedY(speedY);
+
     }
 
     private boolean checkCollision(Rectangle antag, Rectangle victim) {
