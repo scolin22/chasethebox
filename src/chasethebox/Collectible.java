@@ -16,14 +16,12 @@ public class Collectible {
     private Rectangle r;
 
     public static ArrayList<Collectible> collectibles = new ArrayList<Collectible>();
-    
 
     public Collectible(int centerX, int centerY) {
         this.centerY = centerY;
         this.centerX = centerX;
 
-        r = new Rectangle(centerX - box_width / 2, centerY - box_height / 2,
-                box_width, box_height);
+        r = new Rectangle(centerX - box_width / 2, centerY - box_height / 2, box_width, box_height);
 
         collectibles.add(this);
     }

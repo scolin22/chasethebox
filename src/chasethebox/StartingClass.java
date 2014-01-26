@@ -127,17 +127,14 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
         // For collectibles in list, draw collectibles
         for (Collectible clbl : Collectible.collectibles) {
             if (clbl.isVisible()) {
-                g.drawImage(collectible, clbl.getCenterX() - 5,
-                        clbl.getCenterY() - 5, this);
+                g.drawImage(collectible, clbl.getCenterX() - 5, clbl.getCenterY() - 5, this);
             }
         }
         for (Enemy enmy : Enemy.enemies) {
             if (enmy.isChasing()) {
-                g.drawImage(enemy, enmy.getCenterX() - 5,
-                        enmy.getCenterY() - 5, this);
+                g.drawImage(enemy, enmy.getCenterX() - 5, enmy.getCenterY() - 5, this);
             } else {
-                g.drawImage(collectible, enmy.getCenterX() - 5,
-                        enmy.getCenterY() - 5, this);
+                g.drawImage(collectible, enmy.getCenterX() - 5, enmy.getCenterY() - 5, this);
             }
         }
         g.drawImage(character, box.getCenterX() - 5, box.getCenterY() - 5, this);
@@ -209,7 +206,6 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 
         }
 
-        
     }
 
     @Override

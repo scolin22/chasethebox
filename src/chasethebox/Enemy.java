@@ -12,15 +12,9 @@ public class Enemy extends Box {
         setCenterX(x);
         setCenterY(y);
 
-        Rectangle rect = new Rectangle(getCenterX() - getBox_width() / 2,
-                getCenterY() - getBox_height() / 2, getBox_width(),
-                getBox_height());
+        Rectangle rect = new Rectangle(getCenterX() - getBox_width() / 2, getCenterY() - getBox_height() / 2, getBox_width(), getBox_height());
 
-        Rectangle chase_rect = new Rectangle(getCenterX() - getCHASE_SCALE()
-                * (getBox_width() / 2), getCenterY() - getCHASE_SCALE()
-                * (getBox_height() / 2), getCHASE_SCALE() * getBox_width(),
-                getCHASE_SCALE() * getBox_height());
-        
+        Rectangle chase_rect = new Rectangle(getCenterX() - getCHASE_SCALE() * (getBox_width() / 2), getCenterY() - getCHASE_SCALE() * (getBox_height() / 2), getCHASE_SCALE() * getBox_width(), getCHASE_SCALE() * getBox_height());
 
         setR(rect);
         setChase_r(chase_rect);
@@ -32,8 +26,7 @@ public class Enemy extends Box {
         if (isChasing()) {
             chase();
         } else {
-            if (checkCollision(getChase_r(), StartingClass.getBox()
-                    .getChase_r())) {
+            if (checkCollision(getChase_r(), StartingClass.getBox().getChase_r())) {
                 setChasing(true);
             }
         }
@@ -51,8 +44,7 @@ public class Enemy extends Box {
         int x_diff = x - getCenterX();
         int y_diff = y - getCenterY();
 
-        double alpha = Math.sqrt((Math.pow(x_diff, 2) + Math.pow(y_diff, 2))
-                / Math.pow(getMOVESPEED() / 2, 2));
+        double alpha = Math.sqrt((Math.pow(x_diff, 2) + Math.pow(y_diff, 2)) / Math.pow(getMOVESPEED() / 2, 2));
 
         int speedX = (int) (x_diff / alpha);
         int speedY = (int) (y_diff / alpha);

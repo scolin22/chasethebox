@@ -21,13 +21,9 @@ public class Box {
     final private int MOVESPEED = 6;
     final private int CHASE_SCALE = 10;
 
-    private Rectangle r = new Rectangle(getCenterX() - getBox_width() / 2,
-            getCenterY() - getBox_height() / 2, getBox_width(), getBox_height());
+    private Rectangle r = new Rectangle(getCenterX() - getBox_width() / 2, getCenterY() - getBox_height() / 2, getBox_width(), getBox_height());
 
-    private Rectangle chase_r = new Rectangle(getCenterX() - CHASE_SCALE
-            * (getBox_width() / 2), getCenterY() - CHASE_SCALE
-            * (getBox_height() / 2), CHASE_SCALE * getBox_width(), CHASE_SCALE
-            * getBox_height());
+    private Rectangle chase_r = new Rectangle(getCenterX() - CHASE_SCALE * (getBox_width() / 2), getCenterY() - CHASE_SCALE * (getBox_height() / 2), CHASE_SCALE * getBox_width(), CHASE_SCALE * getBox_height());
 
     public Box() {
 
@@ -49,17 +45,15 @@ public class Box {
         } else {
             centerX += speedX;
         }
-        
 
-        r.setLocation(getCenterX() - getBox_width() / 2, getCenterY()
-                - getBox_height() / 2);
-        chase_r.setLocation(getCenterX() - CHASE_SCALE * (getBox_width() / 2),
-                getCenterY() - CHASE_SCALE * (getBox_height() / 2));
+        r.setLocation(getCenterX() - getBox_width() / 2, getCenterY() - getBox_height() / 2);
+        chase_r.setLocation(getCenterX() - CHASE_SCALE * (getBox_width() / 2), getCenterY() - CHASE_SCALE * (getBox_height() / 2));
     }
 
     public void moveUp() {
         setMovingUp(true);
         setSpeedY(-MOVESPEED);
+
     }
 
     public void moveDown() {
